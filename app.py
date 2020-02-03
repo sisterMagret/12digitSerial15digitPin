@@ -13,7 +13,7 @@ api = Api(app)
 """configurations """
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///generate.sqlite3"
 app.config['SECRET_KEY'] = "ABCD 12345"
-
+app.config['SQLALCHEMY_TACK_MODIFICATIONS'] = False
 
 """instantiating the SQLAlchemy Class in db """
 db=SQLAlchemy(app)
