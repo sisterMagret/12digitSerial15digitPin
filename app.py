@@ -73,6 +73,8 @@ class Val_pin(Resource):
             return f"valid Pin"
 
         # else if pin is not found it returns o to represent failure
+        elif len(pin) < 15 or len(pin) > 15:
+            return f"{pin} is an invalid pin length check and try again"
         else:
             return f"{pin} is not a valid pin"    
 
