@@ -70,7 +70,7 @@ class Val_pin(Resource):
         
         #if pin is found it returns 1 for success
         if result1 :
-            return f"{pin} is a valid pin"
+            return f"valid Pin"
 
         # else if pin is not found it returns o to represent failure
         else:
