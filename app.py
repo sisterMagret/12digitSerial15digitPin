@@ -22,7 +22,7 @@ db=SQLAlchemy(app)
 migrate = Migrate(app,db)
 class Gen_pin(Resource):
 
-    def post(self):
+    def get(self):
 
         """convert uuid formate to python string"""
         pin=str(uuid.uuid4())

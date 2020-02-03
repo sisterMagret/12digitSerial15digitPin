@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask,Blueprint,render_template,redirect,request,flash,url_for,session,logging
+from flask import Flask
 
 
 app = Flask(__name__)
