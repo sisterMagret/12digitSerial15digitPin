@@ -78,6 +78,5 @@ class Val_pin(Resource):
 
 api.add_resource(Val_pin, '/api/validate')         
     
-
-
-app.run()
+if __name__ == "__main__":
+    app.run()
