@@ -55,19 +55,26 @@ api.add_resource(Gen_pin, '/api/generate')
 
 
 class Val_pin(Resource):
-    def post(self,pin):
+    def get(self,pin):
+        # """instantiating the request.get_json method to enable user to enter needed information"""
+        # request_data = request.get_json()
+
+        # """requesting a pin from user for validation"""
+        # pin = request_data['pin']
+        # sn = request_data['sn']
+
         """searching for that paticular pin in the database"""
         result1 = generate.query.filter_by(pin = pin).first()
-        result2 = generate.query.filter_by(s_No = sn).first()
+        # result2 = generate.query.filter_by(s_No = sn).first()
         
         
         #if pin is found it returns 1 for success
-        if result1 == result2:
-            return{"response":1}
+        if result1 :
+            return f"{pin} is a valid pin"
 
         # else if pin is not found it returns o to represent failure
         else:
-            return{"response": 0}    
+            return f"{pin} is not a valid pin"    
 
 api.add_resource(Val_pin, '/api/validate/<string:pin>')         
     
