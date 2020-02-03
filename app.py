@@ -1,7 +1,7 @@
 from flask_restful import Resource, Api
 from flask_sqlalchemy import SQLAlchemy
 import uuid
-from flask import Flask
+from flask import Flask,request
 from model import generate
 from flask_migrate import Migrate
 
