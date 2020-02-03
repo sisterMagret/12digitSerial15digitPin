@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import uuid
 from flask import Flask
 from model import generate
+from flask_migrate import Migrate
 
 
 
@@ -18,6 +19,7 @@ app.config['SECRET_KEY'] = "ABCD 12345"
 db=SQLAlchemy(app)
 
 """this API generates a random number"""
+migrate = Migrate(app,db)
 class Gen_pin(Resource):
 
     def post(self):
