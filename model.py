@@ -8,11 +8,14 @@ db=SQLAlchemy(app)
 
 class generate(db.Model):
     __tablename__="Users"
-    s_No = db.Column(db.Integer,primary_key=True) 
-    pin = db.Column(db.String(20),unique=True)
+    id = db.Column(db.Integer,primary_key=True)
+    s_No = db.Column(db.String(13),unique=True,nullable=False)
+    pin = db.Column(db.String(16),unique=True)
+    #gentime = db.Column(db.DateTime, index=True, default = datetime.utcnow)
    
-    def __init__(self, pin):
+    def __init__(self, pin,s_No):
         self.pin = pin
+        self.s_No = s_No
 
 db.create_all()
 

@@ -24,18 +24,15 @@ class Gen_pin(Resource):
 
     def get(self):
 
-        """convert uuid formate to python string"""
-        pin=str(uuid.uuid4())
+        """generates pins and convert uuid formate to python string"""
+        pin = str(int(uuid.uuid4()))[:15]
 
-        """convert char to uppercase"""
-        pin=pin.upper()
+        """generates serial numbers and convert uuid formate to python string"""
+        s_No = str(int(uuid.uuid1()))[:12]
+       
+        
 
-        """remove the - in uuid """
-        pin = pin.replace("-","")
-
-        pin = pin[0:15]
-
-        pinGen = generate(pin)
+        pinGen = generate(pin,s_No)
         
         """adding the pin to the database"""
         db.session.add(pinGen)
@@ -45,6 +42,7 @@ class Gen_pin(Resource):
 
         """querying a column by the pin and saving it to the variable result"""
         result = generate.query.filter_by(pin = pin).first()
+        result2 = generate.query.filter_by(s_No = s_No).first()
         
         """fetching the id of the particular pin and saving in s_N"""
         s_n = result.s_No
@@ -56,25 +54,18 @@ api.add_resource(Gen_pin, '/api/generate')
 
 class Val_pin(Resource):
     def get(self,pin):
-        # """instantiating the request.get_json method to enable user to enter needed information"""
-        # request_data = request.get_json()
+        # checks if pin is of valid length(15) before query
+        if len(pin) < 15 or len(pin) > 15:
+            return f"{pin} is an invalid pin length check and try again"
 
-        # """requesting a pin from user for validation"""
-        # pin = request_data['pin']
-        # sn = request_data['sn']
-
-        """searching for that paticular pin in the database"""
+        #searching for that paticular pin in the database
         result1 = generate.query.filter_by(pin = pin).first()
-        # result2 = generate.query.filter_by(s_No = sn).first()
         
-        
-        #if pin is found it returns 1 for success
+        #if pin is found it returns success message
         if result1 :
             return f"valid Pin"
 
-        # else if pin is not found it returns o to represent failure
-        elif len(pin) < 15 or len(pin) > 15:
-            return f"{pin} is an invalid pin length check and try again"
+        # else if pin is not found it returns a faliure message
         else:
             return f"{pin} is not a valid pin"    
 
