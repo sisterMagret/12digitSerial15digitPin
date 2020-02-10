@@ -28,11 +28,7 @@ class Gen_pin(Resource):
         pin = str(int(uuid.uuid4()))[:15]
 
         """generates serial numbers and convert uuid formate to python string"""
-        s_No = str(int(uuid.uuid1()))[:12]
-       
-        
-
-        pinGen = generate(pin,s_No)
+        pinGen = generate(pin)
         
         """adding the pin to the database"""
         db.session.add(pinGen)
@@ -42,11 +38,12 @@ class Gen_pin(Resource):
 
         """querying a column by the pin and saving it to the variable result"""
         result = generate.query.filter_by(pin = pin).first()
-        result2 = generate.query.filter_by(s_No = s_No).first()
+    
+        """fetching the id of the particular pin and saving in s_n"""
+        s_n = result.id
         
-        """fetching the id of the particular pin and saving in s_N"""
-        s_n = result.s_No
-        return {"SN":s_n, 'pin': pin }
+        """this returns the a 12 digit serial number and 15 digit pin"""
+        return {"SN":f"{s_n:012d}", 'pin': pin }
 
 api.add_resource(Gen_pin, '/api/generate') 
  
